@@ -77,8 +77,17 @@ class App extends Component {
     })
   }
 
+  sortBy = (order) => {
+
+  }
+
   renderContent() {
     const issues = this.state.issues;
+    const sortOptions = [
+      {title: "Most Liked First", order: "likes"},
+      {title: "Easiest First", order: "complexity"},
+      {title: "Hardest First", order: "-complexity"}
+    ]
 
     if (this.state.authenticated === false) {
       return (
@@ -92,6 +101,13 @@ class App extends Component {
           <div className="random-issue">
             <h3 className="title">Feeling Lucky?</h3>
             <Issue issue={this.state.random} />
+          </div>
+          <div className="sort-menu">
+            { sortOptions.map((sort, i) => {
+              return (
+                <a className="btn sort" onClick={(_) => this.sortBy(sort.order)}>{ sort.title }</a>
+              )
+            })}
           </div>
           <div className="issues">
             { this.state.issues.map((issue, i) => {

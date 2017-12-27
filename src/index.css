@@ -7,9 +7,13 @@ body {
 .btn {
   display: inline-block;
   border: 1px solid #efefef;
+  cursor: pointer;
+  padding: 6px 12px;
+}
+
+.btn.login {
   padding: 12px 24px;
   border-radius: 50px;
-  cursor: pointer;
   font-size: 2em;
 }
 
