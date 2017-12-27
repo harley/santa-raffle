@@ -26,17 +26,17 @@ class App extends Component {
   loadCallback = (data, error) => {
     if (data) {
       let cachedLikes = localCache.get('likes') || [];
-      console.log("cachedLikes", cachedLikes)
+      // console.log("cachedLikes", cachedLikes)
 
       const issues = data.issues.map((issue, i) => {
-        const liked = cachedLikes.indexOf(issue.rowId) == -1 ? false : true
+        const liked = cachedLikes.indexOf(issue.rowId) === -1 ? false : true
 
         return {
           ...issue, liked
         }
       })
 
-      console.log("new issues: ", issues);
+      // console.log("new issues: ", issues);
 
       const random = issues[Math.floor(Math.random() * issues.length)];
 
@@ -55,7 +55,7 @@ class App extends Component {
   }
 
   handleAuth = (authResult) => {
-    console.log("handleAuth", authResult)
+    // console.log("handleAuth", authResult)
     if (authResult && !authResult.error) {
       this.setState({authenticated: true});
       sheet.loadSheet(this.loadCallback)
@@ -83,7 +83,7 @@ class App extends Component {
 
     if (this.state.authenticated === false) {
       return (
-        <button onClick={this.googleLogin} className="btn login">Log in with Google</button>
+        <button onClick={this.googleLogin} className="btn login">Google Login to Like</button>
       )
     }
 

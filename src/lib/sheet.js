@@ -11,7 +11,6 @@ export default {
 
   mapToIssues: (rows) => {
     return rows.map((row, i) => {
-      console.log("row ", row)
       let rowId = i + 3,
           index = i + 1,
           repeatable = row[0],
@@ -46,7 +45,6 @@ export default {
         spreadsheetId: config.spreadsheetId,
         range: 'Ideas!A3:Z'
       }).then((response) => {
-        console.log(response.result)
         const rows = response.result.values || [];
 
         // console.log("this", this.a)

@@ -4,8 +4,15 @@ import Raffles from './Raffles';
 import Linkify from 'react-linkify';
 import Like from './Like';
 import pluralize from 'pluralize'
+import localCache from '../lib/localCache';
 
 class Issue extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      issue: props.issue
+    }
+  }
   displayOwner = (issue) => {
     if (issue.owner) {
       return (
@@ -19,12 +26,38 @@ class Issue extends Component {
   }
   wrapPerson = (name) => <span className="person">{name}</span>
 
+  handleLike = (_) => {
+    const { issue } = this.state;
+
+    let cachedLikes = localCache.get('likes') || [];
+    const index = cachedLikes.indexOf(issue.rowId);
+
+    if (index > -1) {
+      // already liked. nothing to do
+      alert("Already liked, but thank you :)")
+    } else {
+      // like
+      cachedLikes.push(issue.rowId)
+      localCache.set('likes', cachedLikes)
+      this.setState({
+        issue: {
+          ...issue,
+          likes: issue.likes + 1,
+          liked: true
+        }
+      })
+      console.log("cachedLikes", cachedLikes)
+    }
+  }
+
+
+
   render() {
-    const { issue } = this.props;
+    const { issue } = this.state;
 
     return (
       <div className="issue">
-      <Like issue={issue} />
+        <Like issue={issue} handleLike={this.handleLike} />
         <div className="issue-title">
           {issue.index}. {issue.title}
           <Raffles count={issue.raffle} />
