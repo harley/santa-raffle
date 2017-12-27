@@ -14,13 +14,13 @@ export default {
       let rowId = i + 3,
           index = i + 1,
           repeatable = row[0],
-          title = row[1] && row[1].split('\n'),
+          title = row[1] && row[1].split('\n') || [],
           raffle = row[2],
           complexity = row[3],
           requestor = row[4],
           approver = row[5],
           owner = row[6],
-          comments = row[7] && row[7].split('\n');
+          comments = row[7] && row[7].split('\n') || [];
 
         return {
           rowId,

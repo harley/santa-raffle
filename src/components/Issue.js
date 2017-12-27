@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../styles/Issue.css';
 import Raffles from './Raffles';
+import Linkify from 'react-linkify';
 
 class Issue extends Component {
   displayOwner = (issue) => {
@@ -33,9 +34,15 @@ class Issue extends Component {
             this.displayOwner(issue)
           }
         </div> 
-        <div className="issue-comments">
-          {issue.comments}
-        </div>
+        <Linkify>
+          <div className="issue-comments">
+            { issue.comments.map((line, i) => {
+              return (
+                <p className="issue-comment-line" key={ i }>{ line }</p>
+              );
+            }) }
+          </div>
+        </Linkify>
       </div>
     )
   }

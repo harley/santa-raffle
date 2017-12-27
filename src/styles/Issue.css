@@ -39,3 +39,7 @@
 .person {
   color: #666;
 }
+
+p.issue-comment-line {
+  margin: 2px 0;
+}
