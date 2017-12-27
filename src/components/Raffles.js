@@ -9,7 +9,7 @@ class Raffles extends Component {
       {
         range.map((e) => {
           return (
-            <img className="raffle-image" src={ require('../images/ticket-front.jpg')} />
+            <img className="raffle-image" src={ require('../images/ticket-front.jpg')} key={e} />
           )
         })
       }

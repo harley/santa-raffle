@@ -3,6 +3,19 @@ import '../styles/Issue.css';
 import Raffles from './Raffles';
 
 class Issue extends Component {
+  displayOwner = (issue) => {
+    if (issue.owner) {
+      return (
+        <span>
+          | advisable by {this.wrapPerson(issue.owner)}
+        </span>
+      )
+    }
+
+    return ""
+  }
+  wrapPerson = (name) => <span className="person">{name}</span>
+
   render() {
     const { issue } = this.props;
 
@@ -13,7 +26,12 @@ class Issue extends Component {
           <Raffles count={issue.raffle} />
         </div>
         <div className="issue-body">
-          complexity: {issue.complexity} | requested by {issue.requestor} | approved by {issue.approver}
+          complexity: {issue.complexity} &nbsp;
+          | requested by {this.wrapPerson(issue.requestor)}&nbsp;
+          | approved by {this.wrapPerson(issue.approver)}&nbsp;
+          {
+            this.displayOwner(issue)
+          }
         </div> 
         <div className="issue-comments">
           {issue.comments}
