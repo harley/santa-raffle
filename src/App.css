@@ -27,3 +27,29 @@
 .sort-menu {
   margin-bottom: 20px;
 }
+
+.btn {
+  display: inline-block;
+  border: 1px solid #efefef;
+  cursor: pointer;
+  padding: 6px 12px;
+}
+
+.btn.login {
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-size: 2em;
+}
+
+.btn.like {
+  font-size: 1em;
+  padding: 6px 12px;
+  border-radius: 24px;
+}
+.btn.liked {
+  color: #aaa;
+}
+
+.btn.active {
+  background-color: #efefef;
+}

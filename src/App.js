@@ -11,7 +11,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      issues: []
+      issues: [],
+      sortOrder: "-likes"
     }
   }
 
@@ -77,16 +78,35 @@ class App extends Component {
     })
   }
 
-  sortBy = (order) => {
+  setSortOrder = (sortOrder) => {
+    this.setState({sortOrder})
+  }
 
+  sorted = (issues, sortOrder) => {
+    if (sortOrder === "-likes") {
+      return issues.sort((a, b) => (b.likes - a.likes))
+    }
+
+    if (sortOrder === "complexity") {
+      return issues.sort((a, b) => (a.complexity - b.complexity))
+    }
+
+    if (sortOrder === "-complexity") {
+      return issues.sort((a, b) => (b.complexity - a.complexity))
+    }
+
+    return issues.sort((a, b) => (a.rowId - b.rowId))
   }
 
   renderContent() {
-    const issues = this.state.issues;
+    const { issues, sortOrder } = this.state;
+
+    console.log("renderContent: ", issues.map((e) => e.likes))
     const sortOptions = [
-      {title: "Most Liked First", order: "likes"},
+      {title: "Most Liked First", order: "-likes"},
       {title: "Easiest First", order: "complexity"},
-      {title: "Hardest First", order: "-complexity"}
+      {title: "Hardest First", order: "-complexity"},
+      {title: "Original", order: "rowId"}
     ]
 
     if (this.state.authenticated === false) {
@@ -99,22 +119,18 @@ class App extends Component {
       return (
         <div className="issues-wrapper">
           <div className="random-issue">
-            <h3 className="title">Feeling Lucky?</h3>
+            <h2 className="title">Feeling Lucky?</h2>
             <Issue issue={this.state.random} />
           </div>
           <div className="sort-menu">
             { sortOptions.map((sort, i) => {
               return (
-                <a className="btn sort" onClick={(_) => this.sortBy(sort.order)}>{ sort.title }</a>
+                <a className={"btn sort" + (sortOrder === sort.order ? ' active' : '')} onClick={(_) => this.setSortOrder(sort.order)} key={ sort.order }>{ sort.title }</a>
               )
             })}
           </div>
           <div className="issues">
-            { this.state.issues.map((issue, i) => {
-              return (
-                <Issue key={ i } issue={ issue } />
-              );
-            }) }
+            { this.sorted(issues, this.state.sortOrder).map((issue, i) => <Issue key={ issue.rowId } issue={ issue } index={ i+1 }/>) }
           </div>
         </div>
       )

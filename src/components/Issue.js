@@ -59,7 +59,7 @@ class Issue extends Component {
       <div className="issue">
         <Like issue={issue} handleLike={this.handleLike} />
         <div className="issue-title">
-          {issue.index}. {issue.title}
+          {this.props.index ? (this.props.index + ". ") : ""} {issue.title}
           <Raffles count={issue.raffle} />
         </div>
         <div className="issue-body">
