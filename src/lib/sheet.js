@@ -14,7 +14,7 @@ export default {
       let rowId = i + 3,
           index = i + 1,
           repeatable = row[0],
-          title = (row[1] && row[1].split('\n')) || [],
+          title = row[1],
           raffle = row[2],
           complexity = row[3],
           requestor = row[4],
@@ -49,7 +49,7 @@ export default {
 
         // console.log("this", this.a)
         // TODO: check if this `this.a` is officially supported
-        const issues = this.a.mapToIssues(rows);
+        const issues = this.a.mapToIssues(rows).filter(e => e.title && e.title.length)
         callback({issues})
       }, (response) => {callback(false, response.result.error)});
     })
