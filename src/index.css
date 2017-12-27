@@ -6,6 +6,7 @@ body {
 
 .btn {
   display: inline-block;
+  border: 1px solid #efefef;
   padding: 12px 24px;
   border-radius: 50px;
   cursor: pointer;
@@ -15,7 +16,13 @@ body {
 .btn.like {
   font-size: 1em;
   padding: 6px 12px;
+  border-radius: 24px;
 }
 .btn.liked {
   color: #aaa;
+}
+
+.title {
+  font-family: "Bradley Hand", cursive;
+  margin: 10px 0;
 }

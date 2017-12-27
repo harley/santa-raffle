@@ -36,10 +36,7 @@ class App extends Component {
         }
       })
 
-      // console.log("new issues: ", issues);
-
       const random = issues[Math.floor(Math.random() * issues.length)];
-
       data.issues = issues
 
       this.setState({
@@ -90,6 +87,10 @@ class App extends Component {
     if (issues.length) {
       return (
         <div className="issues-wrapper">
+          <div className="random-issue">
+            <h3 className="title">Feeling Lucky?</h3>
+            <Issue issue={this.state.random} />
+          </div>
           <div className="issues">
             { this.state.issues.map((issue, i) => {
               return (

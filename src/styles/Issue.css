@@ -10,6 +10,7 @@
   margin-bottom: 10px;
   padding: 10px;
   border: 1px solid #eee;
+  text-align: left;
 }
 
 .issue-body {
@@ -26,6 +27,20 @@
 
 .issue .like {
   float: right;
+}
+
+.random-issue {
+  border: 2px solid #aa1e16;
+  max-width: 600px;
+  margin: auto;
+  margin-bottom: 30px;
+  font-size: 1.1em;
+  animation-name: pulsingColor;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+.random-issue .issue {
+  border-color: white;
 }
 
 .raffle-image {
@@ -46,4 +61,18 @@
 
 p.issue-comment-line {
   margin: 2px 0;
+}
+
+
+@keyframes pulsingColor {
+  0% {
+    border-color: #aa1e16;
+  }
+  50% {
+    border-color: #aa1d1660;
+  }
+  100% {
+    border-color: #aa1e16;
+
+  }
 }

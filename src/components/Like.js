@@ -16,7 +16,7 @@ class Like extends Component {
     const liked = this.props.issue.liked;
 
     return (
-      <button className={"btn like"+ (liked ? " liked" : "")} onClick={this.onLike}>{liked ? "Liked" : "Like"}</button>  
+      <a className={"btn like"+ (liked ? " liked" : "")} onClick={this.onLike}>{liked ? "🤙🏻" : "👍"}</a> 
     );
   }
 }
