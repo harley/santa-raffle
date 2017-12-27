@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "install": "^0.10.2",
     "pluralize": "^7.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-github-fork-ribbon": "^0.5.1",
     "react-linkify": "^0.2.1",
     "react-scripts": "1.0.17"
   },

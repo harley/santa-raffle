@@ -4,6 +4,8 @@ import './App.css';
 import Issue from './components/Issue';
 import sheet from './lib/sheet';
 import localCache from './lib/localCache';
+import GitHubForkRibbon from 'react-github-fork-ribbon';
+
 
 class App extends Component {
   constructor(props) {
@@ -111,6 +113,12 @@ class App extends Component {
           <img alt="" className="christmas-raffle" src={ require("./images/christmas-raffle.png") } />
         </header>
         { this.renderContent() }
+
+        <GitHubForkRibbon position="right"
+                          href="//github.com/harley/santa-raffle"
+                          target="_blank" >
+          Fork me on GitHub 
+        </GitHubForkRibbon> 
       </div>
     );
   }

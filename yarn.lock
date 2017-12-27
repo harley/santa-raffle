@@ -3155,6 +3155,10 @@ inquirer@3.3.0, inquirer@^3.0.6:
     strip-ansi "^4.0.0"
     through "^2.3.6"
 
+install@^0.10.2:
+  version "0.10.2"
+  resolved "https://registry.yarnpkg.com/install/-/install-0.10.2.tgz#f1f71902797e5a900069fb9ab80c94055025ffdc"
+
 internal-ip@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/internal-ip/-/internal-ip-1.2.0.tgz#ae9fbf93b984878785d50a8de1b356956058cf5c"
@@ -5143,6 +5147,10 @@ react-dom@^16.2.0:
 react-error-overlay@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-3.0.0.tgz#c2bc8f4d91f1375b3dad6d75265d51cd5eeaf655"
+
+react-github-fork-ribbon@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/react-github-fork-ribbon/-/react-github-fork-ribbon-0.5.1.tgz#35ab2815b2b5b02cb2ebd7d1bb46fee0c43ed5bb"
 
 react-linkify@^0.2.1:
   version "0.2.1"
