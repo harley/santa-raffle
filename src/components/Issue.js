@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import '../styles/Issue.css';
+import Raffles from './Raffles';
+
 class Issue extends Component {
   render() {
     const { issue } = this.props;
 
     return (
-      <div>
-        <div class="issue-title">
-          {issue.index}. {issue.title} (raffle: {issue.raffle})
+      <div className="issue">
+        <div className="issue-title">
+          {issue.index}. {issue.title}
+          <Raffles count={issue.raffle} />
         </div>
-        <div class="issue-body">
+        <div className="issue-body">
           complexity: {issue.complexity} | requested by {issue.requestor} | approved by {issue.approver}
         </div> 
-        <div class="issue-comments">
+        <div className="issue-comments">
           {issue.comments}
         </div>
       </div>

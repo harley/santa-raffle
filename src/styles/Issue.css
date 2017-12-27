@@ -6,10 +6,32 @@
   padding: 20px;
 }
 
-.issue-body {
-  color: #999;
-}
-
 .issue {
   margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #eee;
+}
+
+.issue-body {
+  color: #999;
+  font-size: 0.8em;
+}
+.issue-comments {
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 10px;
+  padding-left: 10px;
+  border-left: 3px solid #efefef;
+}
+
+.raffle-image {
+  height: 16px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+.raffles {
+  margin-left: 10px;
+  display: inline-block;
+  opacity: 0.5;
 }

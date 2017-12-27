@@ -24,7 +24,6 @@ class App extends Component {
 
   loadCallback = (data, error) => {
     if (data) {
-      console.log("setting data: ", data)
       const random = data.issues[Math.floor(Math.random() * data.issues.length)];
 
       this.setState({
@@ -40,10 +39,8 @@ class App extends Component {
   }
 
   handleAuth = (authResult) => {
-    console.log("authResult before: ", authResult)
     if (authResult && !authResult.error) {
       this.setState({authenticated: true});
-      console.log("authResult: ", authResult)
       sheet.loadSheet(this.loadCallback)
     } else {
       this.setState({authenticated: false})
@@ -58,8 +55,8 @@ class App extends Component {
   loadFakeData = () => {
     this.setState({
       issues: [
-        {title: "One", comments: "Comments for One"},
-        {title: "Two", comments: "Comments for Two"}
+        {title: "One", comments: "Comments for One", raffle: "1", requestor: "harley", approver: "nguyen"},
+        {title: "Two", comments: "Comments for Two", raffle: "2", requestor: "dave", approver: "hieu"}
       ]
     })
   }
@@ -93,7 +90,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Santa Raffles</h1>
+          <img className="christmas-raffle" src={ require("./images/christmas-raffle.png") } />
         </header>
         { this.renderContent() }
       </div>
