@@ -11,16 +11,18 @@ export default {
 
   mapToIssues: (rows) => {
     return rows.map((row, i) => {
+      console.log("row ", row)
       let rowId = i + 3,
           index = i + 1,
           repeatable = row[0],
-          title = row[1] && row[1].split('\n') || [],
+          title = (row[1] && row[1].split('\n')) || [],
           raffle = row[2],
           complexity = row[3],
           requestor = row[4],
           approver = row[5],
           owner = row[6],
-          comments = row[7] && row[7].split('\n') || [];
+          comments = (row[7] && row[7].split('\n')) || [],
+          likes = parseInt(row[14], 10) || 1;
 
         return {
           rowId,
@@ -32,7 +34,8 @@ export default {
           requestor,
           approver,
           owner,
-          comments
+          comments,
+          likes
         }
     })
   },
@@ -41,15 +44,27 @@ export default {
     window.gapi.client.load('sheets', 'v4', () => {
       window.gapi.client.sheets.spreadsheets.values.get({
         spreadsheetId: config.spreadsheetId,
-        range: 'Ideas!A3:M'
+        range: 'Ideas!A3:Z'
       }).then((response) => {
-        // console.log(response.result)
+        console.log(response.result)
         const rows = response.result.values || [];
 
         // console.log("this", this.a)
+        // TODO: check if this `this.a` is officially supported
         const issues = this.a.mapToIssues(rows);
         callback({issues})
       }, (response) => {callback(false, response.result.error)});
     })
   },
+
+  // write an array of values to a range
+  updateSheet: (range, values, success, error) => {
+    window.gapi.client.sheets.spreadsheets.values.update({
+      spreadsheetId: config.spreadsheetId,
+      range: range,
+      valueInputOption: 'USER_ENTERED',
+      values: values
+      }
+    ).then(success, error);
+  }
 }

@@ -3,6 +3,7 @@ import logo from './images/santa.png';
 import './App.css';
 import Issue from './components/Issue';
 import sheet from './lib/sheet';
+import localCache from './lib/localCache';
 
 class App extends Component {
   constructor(props) {
@@ -24,12 +25,27 @@ class App extends Component {
 
   loadCallback = (data, error) => {
     if (data) {
-      const random = data.issues[Math.floor(Math.random() * data.issues.length)];
+      let cachedLikes = localCache.get('likes') || [];
+      console.log("cachedLikes", cachedLikes)
+
+      const issues = data.issues.map((issue, i) => {
+        const liked = cachedLikes.indexOf(issue.rowId) == -1 ? false : true
+
+        return {
+          ...issue, liked
+        }
+      })
+
+      console.log("new issues: ", issues);
+
+      const random = issues[Math.floor(Math.random() * issues.length)];
+
+      data.issues = issues
 
       this.setState({
         ...data,
         random
-      });
+      })
     }
     else {
       this.setState({
@@ -39,6 +55,7 @@ class App extends Component {
   }
 
   handleAuth = (authResult) => {
+    console.log("handleAuth", authResult)
     if (authResult && !authResult.error) {
       this.setState({authenticated: true});
       sheet.loadSheet(this.loadCallback)
@@ -90,7 +107,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <img className="christmas-raffle" src={ require("./images/christmas-raffle.png") } />
+          <img alt="" className="christmas-raffle" src={ require("./images/christmas-raffle.png") } />
         </header>
         { this.renderContent() }
       </div>

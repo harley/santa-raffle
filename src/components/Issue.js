@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import '../styles/Issue.css';
 import Raffles from './Raffles';
 import Linkify from 'react-linkify';
+import Like from './Like';
+import pluralize from 'pluralize'
 
 class Issue extends Component {
   displayOwner = (issue) => {
@@ -22,12 +24,13 @@ class Issue extends Component {
 
     return (
       <div className="issue">
+      <Like issue={issue} />
         <div className="issue-title">
           {issue.index}. {issue.title}
           <Raffles count={issue.raffle} />
         </div>
         <div className="issue-body">
-          complexity: {issue.complexity} &nbsp;
+          {pluralize('like', issue.likes, true)} | complexity: {issue.complexity}&nbsp;
           | requested by {this.wrapPerson(issue.requestor)}&nbsp;
           | approved by {this.wrapPerson(issue.approver)}&nbsp;
           {

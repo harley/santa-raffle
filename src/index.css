@@ -11,3 +11,11 @@ body {
   cursor: pointer;
   font-size: 2em;
 }
+
+.btn.like {
+  font-size: 1em;
+  padding: 6px 12px;
+}
+.btn.liked {
+  color: #aaa;
+}
