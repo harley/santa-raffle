@@ -1,0 +1,15 @@
+
+.issues {
+  text-align: left;
+}
+.issues-wrapper {
+  padding: 20px;
+}
+
+.issue-body {
+  color: #999;
+}
+
+.issue {
+  margin-bottom: 10px;
+}
