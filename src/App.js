@@ -98,6 +98,14 @@ class App extends Component {
     return issues.sort((a, b) => (a.rowId - b.rowId))
   }
 
+  renderLogin = () => {
+    if (this.state.authenticated === false) {
+      return (
+        <button onClick={this.googleLogin} className="btn login">Google Login to Like</button>
+      )
+    }
+  }
+
   renderContent() {
     const { issues, sortOrder } = this.state;
 
@@ -107,12 +115,6 @@ class App extends Component {
       {title: "Hardest First", order: "-complexity"},
       {title: "Original", order: "rowId"}
     ]
-
-    if (this.state.authenticated === false) {
-      return (
-        <button onClick={this.googleLogin} className="btn login">Google Login to Like</button>
-      )
-    }
 
     if (issues.length) {
       return (
@@ -143,6 +145,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <img alt="" className="christmas-raffle" src={ require("./images/christmas-raffle.png") } />
         </header>
+        { this.renderLogin() }
         { this.renderContent() }
 
         <GitHubForkRibbon position="right"

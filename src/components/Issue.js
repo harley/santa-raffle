@@ -79,7 +79,15 @@ class Issue extends Component {
             }) }
           </div>
         </Linkify>
-
+        <Linkify>
+          <div className="issue-links">
+            { issue.links.map((line, i) => {
+              return (
+                <p className="issue-link-line" key={ i }>{ line }</p>
+              );
+            }) }
+          </div>
+        </Linkify>
         <WIPs wips={ issue.wips }/>
       </div>
     )
