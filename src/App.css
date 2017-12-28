@@ -30,9 +30,14 @@
 
 .btn {
   display: inline-block;
-  border: 1px solid #efefef;
+  border: 1px solid #ccc;
   cursor: pointer;
   padding: 6px 12px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background-color: #efefef;
 }
 
 .btn.login {
@@ -52,4 +57,13 @@
 
 .btn.active {
   background-color: #efefef;
+}
+
+.btn.jira {
+  font-size: 0.8em;
+  color: black;
+}
+
+.wips {
+  margin-top: 10px;
 }

@@ -5,6 +5,7 @@ import Linkify from 'react-linkify';
 import Like from './Like';
 import pluralize from 'pluralize'
 import localCache from '../lib/localCache';
+import WIPs from './WIPs';
 
 class Issue extends Component {
   constructor(props) {
@@ -51,12 +52,11 @@ class Issue extends Component {
   }
 
 
-
   render() {
     const { issue } = this.state;
 
     return (
-      <div className="issue">
+      <div className={"issue" + (issue.wips.length ? " has-wips" : "")}>
         <Like issue={issue} handleLike={this.handleLike} />
         <div className="issue-title">
           {this.props.index ? (this.props.index + ". ") : ""} {issue.title}
@@ -79,6 +79,8 @@ class Issue extends Component {
             }) }
           </div>
         </Linkify>
+
+        <WIPs wips={ issue.wips }/>
       </div>
     )
   }

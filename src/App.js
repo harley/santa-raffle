@@ -101,7 +101,6 @@ class App extends Component {
   renderContent() {
     const { issues, sortOrder } = this.state;
 
-    console.log("renderContent: ", issues.map((e) => e.likes))
     const sortOptions = [
       {title: "Most Liked First", order: "-likes"},
       {title: "Easiest First", order: "complexity"},

@@ -15,12 +15,13 @@ export default {
           index = i + 1,
           repeatable = row[0],
           title = row[1],
-          raffle = row[2],
-          complexity = row[3],
+          raffle = parseInt(row[2], 10) || 0,
+          complexity = parseInt(row[3], 10) || 0,
           requestor = row[4],
           approver = row[5],
           owner = row[6],
           comments = (row[7] && row[7].split('\n')) || [],
+          wips = row.slice(10, 12).filter(e => e.length),
           likes = parseInt(row[14], 10) || 1;
 
         return {
@@ -34,6 +35,7 @@ export default {
           approver,
           owner,
           comments,
+          wips,
           likes
         }
     })

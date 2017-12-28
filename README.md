@@ -69,7 +69,7 @@ No special requirements. Either ask me to add as contributors or fork and make P
 
 ## TODO
 
-- [ ] Add Sorting: by likes count, by complexity. Default ordering should probably be by Likes.
+- [x] Add Sorting: by likes count, by complexity. Default ordering should probably be by Likes.
 - [ ] Display if an issue has been solved or being solved
 - [ ] Display link to solutions (WIP columns)
 - [ ] Display Complexity better
