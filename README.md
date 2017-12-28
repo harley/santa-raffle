@@ -6,6 +6,8 @@ After this contest ends, not only will the lucky winners be happy, but we all wi
 
 ![](https://cl.ly/3O1h2b2X263f/download/Screen%20Shot%202017-12-27%20at%201.28.47%20PM.png)
 
+Here's [GIF](https://cl.ly/3r2X2k2X3l0c/Screen%20Recording%202017-12-28%20at%2008.54%20AM.gif) if interested.
+
 ## Getting Started
 
 First you need the data source which is a spreadsheet with the columns in the same order (until we refactor into `src/sheet.js` to be more generic). Our spreadsheet looks like this
@@ -78,4 +80,4 @@ No special requirements. Either ask me to add as contributors or fork and make P
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE.md file for details
+This project is licensed under the MIT License.
