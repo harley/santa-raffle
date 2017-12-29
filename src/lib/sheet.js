@@ -22,6 +22,7 @@ export default {
           owner = row[6],
           comments = (row[7] && row[7].split('\n')) || [],
           links = (row[8] && row[8].split('\n')) || [],
+          peopleWithInterest = (row[9] && row[9].split('\n')) || [],
           wips = row.slice(10, 12).filter(e => e.length),
           likes = parseInt(row[14], 10) || 1;
 
@@ -37,6 +38,7 @@ export default {
           owner,
           comments,
           links,
+          peopleWithInterest,
           wips,
           likes
         }

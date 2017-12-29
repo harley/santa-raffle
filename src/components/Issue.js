@@ -25,6 +25,14 @@ class Issue extends Component {
 
     return ""
   }
+
+  displayPeopleWithInterest = (issue) => issue.peopleWithInterest && issue.peopleWithInterest.length > 0 ?
+    <span>
+      {" | interested by "}
+      <span className="person">{issue.peopleWithInterest.join(', ')}</span>
+      {" "}
+    </span> : ""
+
   wrapPerson = (name) => <span className="person">{name}</span>
 
   handleLike = (_) => {
@@ -66,10 +74,11 @@ class Issue extends Component {
           {pluralize('like', issue.likes, true)} | complexity: {issue.complexity}&nbsp;
           | requested by {this.wrapPerson(issue.requestor)}&nbsp;
           | approved by {this.wrapPerson(issue.approver)}&nbsp;
+          { this.displayPeopleWithInterest(issue) }
           {
             this.displayOwner(issue)
           }
-        </div> 
+        </div>
         <Linkify>
           <div className="issue-comments">
             { issue.comments.map((line, i) => {
