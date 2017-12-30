@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import shortid from 'shortid';
 import '../styles/Issue.css';
 import Raffles from './Raffles';
 import Linkify from 'react-linkify';
@@ -26,14 +27,21 @@ class Issue extends Component {
     return ""
   }
 
-  displayPeopleWithInterest = (issue) => issue.peopleWithInterest && issue.peopleWithInterest.length > 0 ?
-    <span>
-      {" | interested by "}
-      <span className="person">{issue.peopleWithInterest.join(', ')}</span>
-      {" "}
-    </span> : ""
+  displayPeopleWithInterest = (issue) => {
+    if (issue.peopleWithInterest && issue.peopleWithInterest.length > 0) {
+      return (
+        <div className="people">
+          | interested:&nbsp;
+          {issue.peopleWithInterest.map(person => this.wrapPerson(person, shortid.generate()))}
+          &nbsp;
+        </div>
+      )
+    }
 
-  wrapPerson = (name) => <span className="person">{name}</span>
+    return ""
+  }
+
+  wrapPerson = (name, key) => <span key={key} className="person">{name}</span>
 
   handleLike = (_) => {
     const { issue } = this.state;
