@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import shortid from 'shortid';
+import sheet from '../lib/sheet';
 import '../styles/Issue.css';
 import Raffles from './Raffles';
 import Linkify from 'react-linkify';
@@ -12,7 +13,9 @@ class Issue extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      issue: props.issue
+      issue: props.issue,
+      comments: props.issue.comments,
+      isEditing: false
     }
   }
   displayOwner = (issue) => {
@@ -67,9 +70,20 @@ class Issue extends Component {
     }
   }
 
+  openForEdit = () => this.setState( { isEditing: true } )
+
+  saveComments = () => {
+    const { issue, comments } = this.state;
+    sheet.updateSheet("Ideas!H" + issue.rowId, [[comments.join('\n')]], () => {
+      this.setState( { isEditing: false } );
+    }, (error) => {
+      console.log("Error updating sheet: ", error);
+      alert("Error: " + error.body);
+    });
+  }
 
   render() {
-    const { issue } = this.state;
+    const { issue, comments, isEditing } = this.state;
 
     return (
       <div className={"issue" + (issue.wips.length ? " has-wips" : "")}>
@@ -87,15 +101,24 @@ class Issue extends Component {
             this.displayOwner(issue)
           }
         </div>
-        <Linkify>
-          <div className="issue-comments">
-            { issue.comments.map((line, i) => {
-              return (
-                <p className="issue-comment-line" key={ i }>{ line }</p>
-              );
-            }) }
-          </div>
-        </Linkify>
+        { !isEditing &&
+          <Linkify>
+            <div className="issue-comments" onClick={this.openForEdit}>
+              { comments.map((line, i) => {
+                return (
+                  <p className="issue-comment-line" key={ i }>{ line }</p>
+                );
+              }) }
+            </div>
+          </Linkify>
+        }
+        { isEditing &&
+          <textarea
+            onChange={(event) => this.setState({ comments: event.target.value.split('\n') })}
+            onBlur={this.saveComments}
+            style={{ width: '100%', height: '100px', marginTop: '10px' }}
+            value={comments.join('\n')} />
+        }
         <Linkify>
           <div className="issue-links">
             { issue.links.map((line, i) => {
