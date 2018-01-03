@@ -7,14 +7,17 @@
 }
 
 .issue {
-  margin-bottom: 10px;
-  padding: 10px;
-  border: 1px solid #eee;
+  padding: 15px 10px;
   text-align: left;
 }
 
 .issue.has-wips {
   background-color: rgba(207, 247, 202, 0.3);
+}
+
+.issue-title span {
+  font-weight: 600;
+  color: #4a4a4a;
 }
 
 .issue-body {
@@ -37,18 +40,17 @@
   float: right;
 }
 
-.random-issue {
+.random-issue .issue {
   border: 3px solid #aa1e16;
-  max-width: 600px;
+  border-left: 0;
+  border-right: 0;
+  max-width: 900px;
   margin: auto;
   margin-bottom: 30px;
   font-size: 1em;
   animation-name: pulsingColor;
   animation-duration: 2s;
   animation-iteration-count: infinite;
-}
-.random-issue .issue {
-  border-color: white;
 }
 
 .raffle-image {
@@ -64,10 +66,9 @@
 }
 
 .person {
-  color: #fff;
-  background: #999;
-  border-radius: 3px;
+  color: #137752;
   padding: 1px 5px;
+  font-weight: 600;
 }
 
 .people {
