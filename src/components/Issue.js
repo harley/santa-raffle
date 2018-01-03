@@ -8,6 +8,7 @@ import Like from './Like';
 import pluralize from 'pluralize'
 import localCache from '../lib/localCache';
 import WIPs from './WIPs';
+import Editable from './Editable';
 
 class Issue extends Component {
   constructor(props) {
@@ -15,7 +16,6 @@ class Issue extends Component {
     this.state = {
       issue: props.issue,
       comments: props.issue.comments,
-      isEditing: false
     }
   }
   displayOwner = (issue) => {
@@ -70,12 +70,20 @@ class Issue extends Component {
     }
   }
 
-  openForEdit = () => this.setState( { isEditing: true } )
-
-  saveComments = () => {
-    const { issue, comments } = this.state;
+  saveComments = (comments) => {
+    const { issue } = this.state;
     sheet.updateSheet("Ideas!H" + issue.rowId, [[comments.join('\n')]], () => {
-      this.setState( { isEditing: false } );
+      this.setState( { comments } );
+    }, (error) => {
+      console.log("Error updating sheet: ", error);
+      alert("Error: " + error.body);
+    });
+  }
+
+  saveTitle = (title) => {
+    const { issue } = this.state;
+    sheet.updateSheet("Ideas!B" + issue.rowId, [[title]], () => {
+      this.setState( { issue: { ...this.state.issue, title } } );
     }, (error) => {
       console.log("Error updating sheet: ", error);
       alert("Error: " + error.body);
@@ -83,13 +91,14 @@ class Issue extends Component {
   }
 
   render() {
-    const { issue, comments, isEditing } = this.state;
+    const { issue, comments } = this.state;
 
     return (
       <div className={"issue" + (issue.wips.length ? " has-wips" : "")}>
         <Like issue={issue} handleLike={this.handleLike} />
         <div className="issue-title">
-          {this.props.index ? (this.props.index + ". ") : ""} {issue.title}
+          {this.props.index ? (this.props.index + ". ") : ""}
+          <Editable originalContent={issue.title} onSave={this.saveTitle} />
           <Raffles count={issue.raffle} />
         </div>
         <div className="issue-body">
@@ -101,24 +110,12 @@ class Issue extends Component {
             this.displayOwner(issue)
           }
         </div>
-        { !isEditing &&
-          <Linkify>
-            <div className="issue-comments" onClick={this.openForEdit}>
-              { comments.map((line, i) => {
-                return (
-                  <p className="issue-comment-line" key={ i }>{ line }</p>
-                );
-              }) }
-            </div>
-          </Linkify>
-        }
-        { isEditing &&
-          <textarea
-            onChange={(event) => this.setState({ comments: event.target.value.split('\n') })}
-            onBlur={this.saveComments}
-            style={{ width: '100%', height: '100px', marginTop: '10px' }}
-            value={comments.join('\n')} />
-        }
+        <Editable
+          wrapperClassName="issue-comments"
+          lineClassName="issue-comment-line"
+          originalContent={comments}
+          onSave={this.saveComments}
+        />
         <Linkify>
           <div className="issue-links">
             { issue.links.map((line, i) => {

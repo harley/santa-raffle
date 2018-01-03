@@ -8,3 +8,8 @@ body {
   font-family: "Bradley Hand", cursive;
   margin: 10px 0;
 }
+
+a {
+  text-decoration: none;
+  color: #357edd;
+}
