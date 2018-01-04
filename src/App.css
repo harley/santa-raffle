@@ -33,8 +33,18 @@
   cursor: pointer;
   padding: 6px 12px;
   text-decoration: none;
+  font-size: 14px;
+  color: #4a4a4a;
 }
-
+.sort-menu .btn+.btn {
+  border-left: 0;
+}
+.sort-menu .btn:first-child {
+  border-radius: 16px 0 0 16px;
+}
+.sort-menu .btn:last-child {
+  border-radius: 0 16px 16px 0;
+}
 .btn:hover {
   background-color: #efefef;
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import shortid from 'shortid';
+import sheet from '../lib/sheet';
 import '../styles/Issue.css';
 import Raffles from './Raffles';
 import Linkify from 'react-linkify';
@@ -7,12 +8,14 @@ import Like from './Like';
 import pluralize from 'pluralize'
 import localCache from '../lib/localCache';
 import WIPs from './WIPs';
+import Editable from './Editable';
 
 class Issue extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      issue: props.issue
+      issue: props.issue,
+      comments: props.issue.comments,
     }
   }
   displayOwner = (issue) => {
@@ -67,15 +70,35 @@ class Issue extends Component {
     }
   }
 
+  saveComments = (comments) => {
+    const { issue } = this.state;
+    sheet.updateSheet("Ideas!H" + issue.rowId, [[comments.join('\n')]], () => {
+      this.setState( { comments } );
+    }, (error) => {
+      console.log("Error updating sheet: ", error);
+      alert("Error: " + error.body);
+    });
+  }
+
+  saveTitle = (title) => {
+    const { issue } = this.state;
+    sheet.updateSheet("Ideas!B" + issue.rowId, [[title]], () => {
+      this.setState( { issue: { ...this.state.issue, title } } );
+    }, (error) => {
+      console.log("Error updating sheet: ", error);
+      alert("Error: " + error.body);
+    });
+  }
 
   render() {
-    const { issue } = this.state;
+    const { issue, comments } = this.state;
 
     return (
       <div className={"issue" + (issue.wips.length ? " has-wips" : "")}>
         <Like issue={issue} handleLike={this.handleLike} />
         <div className="issue-title">
-          {this.props.index ? (this.props.index + ". ") : ""} {issue.title}
+          {this.props.index ? (this.props.index + ". ") : ""}
+          <Editable originalContent={issue.title} onSave={this.saveTitle} />
           <Raffles count={issue.raffle} />
         </div>
         <div className="issue-body">
@@ -87,15 +110,12 @@ class Issue extends Component {
             this.displayOwner(issue)
           }
         </div>
-        <Linkify>
-          <div className="issue-comments">
-            { issue.comments.map((line, i) => {
-              return (
-                <p className="issue-comment-line" key={ i }>{ line }</p>
-              );
-            }) }
-          </div>
-        </Linkify>
+        <Editable
+          wrapperClassName="issue-comments"
+          lineClassName="issue-comment-line"
+          originalContent={comments}
+          onSave={this.saveComments}
+        />
         <Linkify>
           <div className="issue-links">
             { issue.links.map((line, i) => {
