@@ -23,8 +23,10 @@
   width: 240px;
 }
 
-.sort-menu {
+.sort-menu, .filter-menu {
   margin-bottom: 20px;
+  margin-left: 20px;
+  display: inline-block;
 }
 
 .btn {
@@ -36,13 +38,13 @@
   font-size: 14px;
   color: #4a4a4a;
 }
-.sort-menu .btn+.btn {
+.sort-menu .btn+.btn, .filter-menu .btn+.btn {
   border-left: 0;
 }
-.sort-menu .btn:first-child {
+.sort-menu .btn:first-child, .filter-menu .btn:first-child {
   border-radius: 16px 0 0 16px;
 }
-.sort-menu .btn:last-child {
+.sort-menu .btn:last-child, .filter-menu .btn:last-child {
   border-radius: 0 16px 16px 0;
 }
 .btn:hover {
@@ -75,4 +77,13 @@
 
 .wips {
   margin-top: 10px;
+}
+
+span.label {
+  background-color: rgba(207, 247, 202, 0.3);
+  border: 1px solid #efefef;
+  padding: 0px 3px;
+  font-size: 0.9em;
+  border-radius: 4px;
+  margin: 0 3px;
 }

@@ -12,7 +12,8 @@ class App extends Component {
     super(props);
     this.state = {
       issues: [],
-      sortOrder: "-likes"
+      sortOrder: "-likes", 
+      filterName: "All"
     }
   }
 
@@ -79,7 +80,11 @@ class App extends Component {
   }
 
   setSortOrder = (sortOrder) => {
-    this.setState({sortOrder})
+    this.setState({ sortOrder })
+  }
+
+  setFilter = (filterName) => {
+    this.setState({ filterName })
   }
 
   sorted = (issues, sortOrder) => {
@@ -98,6 +103,18 @@ class App extends Component {
     return issues.sort((a, b) => (a.rowId - b.rowId))
   }
 
+  filtered = (issues, filterName) => {
+    if (filterName === "WIPs") {
+      return issues.filter((e) => e.wips.length)
+    }
+
+    if (filterName === "New") {
+      return issues.filter((e) => e.wips.length < 1)
+    }
+
+    return issues;
+  }
+
   renderLogin = () => {
     if (this.state.authenticated === false) {
       return (
@@ -107,13 +124,19 @@ class App extends Component {
   }
 
   renderContent() {
-    const { issues, sortOrder } = this.state;
+    const { issues, sortOrder, filterName } = this.state;
 
     const sortOptions = [
       {title: "Most Liked First", order: "-likes"},
       {title: "Easiest First", order: "complexity"},
       {title: "Hardest First", order: "-complexity"},
       {title: "Original", order: "rowId"}
+    ]
+
+    const filterOptions = [
+      {name: "All"},
+      {name: "WIPs"},
+      {name: "New"}
     ]
 
     if (issues.length) {
@@ -130,8 +153,18 @@ class App extends Component {
               )
             })}
           </div>
+          <div className="filter-menu">
+            { filterOptions.map((filter, i) => {
+              return (
+                <a className={"btn filter" + (filterName === filter.name ? ' active' : '')} onClick={(_) => this.setFilter(filter.name)} key={ filter.name }>
+                  { filter.name }
+                  <span className="label">{ this.filtered(issues, filter.name).length }</span>
+                </a>
+              )
+            })}
+          </div>
           <div className="issues">
-            { this.sorted(issues, this.state.sortOrder).map((issue, i) => <Issue key={ issue.rowId } issue={ issue } index={ i+1 }/>) }
+            { this.sorted(this.filtered(issues, filterName), this.state.sortOrder).map((issue, i) => <Issue key={ issue.rowId } issue={ issue } index={ i+1 }/>) }
           </div>
         </div>
       )
