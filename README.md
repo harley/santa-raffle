@@ -72,10 +72,10 @@ No special requirements. Either ask me to add as contributors or fork and make P
 ## TODO
 
 - [x] Add Sorting: by likes count, by complexity. Default ordering should probably be by Likes.
-- [ ] Display if an issue has been solved or being solved
-- [ ] Display link to solutions (WIP columns)
+- [x] Display if an issue has been solved or being solved
+- [x] Display link to solutions (WIP columns)
+- [x] Display Interested names. Even better: allow adding oneself to interested? Note: we don't have user id in the current OAuth scope.
 - [ ] Display Complexity better
-- [ ] Display Interested names. Even better: allow adding oneself to interested? Note: we don't have user id in the current OAuth scope.
 - [ ] Add TODO to this TODO
 
 ## License
